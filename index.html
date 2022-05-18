@@ -1,0 +1,352 @@
+<!--Weirdle is a replica of the game Wordle :)-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Weirdle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chicle&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body
+        {
+            min-height: 100vh;
+            background-color: pink;
+        }
+
+        h1 
+        {
+            text-align: center;
+            color: black;
+            font-family: 'Chicle', cursive;
+            margin: 0;
+            font-size: 40px;
+            line-height: 40px;
+        }
+
+        hr 
+        {
+            margin: 0;
+            border-top: 1px solid white;
+
+        }
+
+        #game-table td 
+        {
+            border: 1px solid white;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            color: white;
+        }
+
+        table 
+        {
+            margin-left: auto;
+            margin-right: auto;
+            border-spacing: 8px;
+        }
+
+        #game-table 
+        {
+            margin-top: 5px;
+            font-size: 40px; 
+            font-weight: bolder;
+        }
+        i { color: black;}
+
+        .hint,
+        .tries div,
+        #keyboard-row-1 td,
+        #keyboard-row-2 td,
+        #keyboard-row-3 td,
+        #game-table td, 
+        #instructionsModal,
+        #resultsModal, 
+        #enterRealWord,
+        #statsModal
+        {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .hint 
+        {
+            text-align: center;
+            margin: 20px;
+            padding: 10px;
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: pink;
+        }
+
+        #keyboard-row-1 td,
+        #keyboard-row-2 td,
+        #keyboard-row-3 td 
+        {
+            border-radius: 5px;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            background-color: white;
+
+        }
+
+        #keyboard-row-1,
+        #keyboard-row-2,
+        #keyboard-row-3 
+        {
+            border-radius: 5px;
+        }
+
+        .tries 
+        {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .tries div 
+        {
+            display: inline-block;
+            border: 2px solid white;
+            border-radius: 50%;
+            padding: 6px;
+            height: 14px;
+            width: 14px;
+            color: white;
+
+        }
+
+        li
+        {
+            color: white;
+            display: inline;
+        }
+
+        nav 
+        {
+            position: absolute;
+            top: -57px;
+        }
+
+        .container 
+        {
+            position: relative;
+        }
+        #instructionsModal,
+        #resultsModal,
+        #statsModal
+        {
+            color: black;
+            position: relative;
+            top: -450px;
+            left: 410px;
+            border: 2px solid black;
+            background-color: pink;
+            text-align: center;
+            display: none;
+            width: 600px;
+            font-size: 20px;
+
+        }
+        #closeInstructionsBtn,
+        #closeResultsBtn,
+        #closeStatsBtn
+        {
+            font-size:40px;
+            color: black;
+            position: absolute;
+            right: 0px;
+        }
+
+        /** HOVER EFFECTS **/
+        #keyboard-row-1,
+        #keyboard-row-2,
+        #keyboard-row-3,
+        #closeInstructionsBtn,
+        #closeResultsBtn,
+        #closeStatsBtn,
+        #help,
+        #stats 
+        {
+            cursor: pointer;
+        }
+
+        #enterRealWord
+        {
+            font-size: 80px;
+            font-weight: bolder;
+            display: none;
+            color: black;
+            text-align: center;
+            border-radius: 6px;
+            position: absolute;
+            top: 15px;
+            left: 450px;
+            z-index: 1;
+        }
+        #stats
+        {
+            position: absolute;
+            left: 1350px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Weirdle</h1>
+    <div class = "container">
+        <nav>
+            <ul>
+                <li><i id = "help" class="fa fa-question-circle" style="font-size:36px"></i></li>
+                <li><i id = "stats" class="fa fa-bar-chart" style="font-size:36px"></i></li>
+            </ul>
+        </nav>
+        
+        <hr>
+        <div id="enterRealWord">NOT<br> IN<br> OUR<br> DICTIONARY!</div>
+       
+
+        <table id="game-table">
+            <tr>
+                <td id="guess1"></td>
+                <td id="guess2"></td>
+                <td id="guess3"></td>
+                <td id="guess4"></td>
+                <td id="guess5"></td>
+            </tr>
+            <tr>
+                <td id="guess6"></td>
+                <td id="guess7"></td>
+                <td id="guess8"></td>
+                <td id="guess9"></td>
+                <td id="guess10"></td>
+            </tr>
+            <tr>
+                <td id="guess11"></td>
+                <td id="guess12"></td>
+                <td id="guess13"></td>
+                <td id="guess14"></td>
+                <td id="guess15"></td>
+            </tr>
+            <tr>
+                <td id="guess16"></td>
+                <td id="guess17"></td>
+                <td id="guess18"></td>
+                <td id="guess19"></td>
+                <td id="guess20"></td>
+            </tr>
+            <tr>
+                <td id="guess21"></td>
+                <td id="guess22"></td>
+                <td id="guess23"></td>
+                <td id="guess24"></td>
+                <td id="guess25"></td>
+            </tr>
+            <tr>
+                <td id="guess26"></td>
+                <td id="guess27"></td>
+                <td id="guess28"></td>
+                <td id="guess29"></td>
+                <td id="guess30"></td>
+            </tr>
+        </table>
+
+        <table id="keyboard-row-1">
+            <tr>
+                <td id="q">Q</td>
+                <td id="w">W</td>
+                <td id="e">E</td>
+                <td id="r">R</td>
+                <td id="t">T</td>
+                <td id="y">Y</td>
+                <td id="u">U</td>
+                <td id="i">I</td>
+                <td id="o">O</td>
+                <td id="p">P</td>
+
+            </tr>
+        </table>
+        <table id="keyboard-row-2">
+            <tr>
+                <td id="a">A</td>
+                <td id="s">S</td>
+                <td id="d">D</td>
+                <td id="f">F</td>
+                <td id="g">G</td>
+                <td id="h">H</td>
+                <td id="j">J</td>
+                <td id="k">K</td>
+                <td id="l">L</td>
+            </tr>
+        </table>
+
+        <table id="keyboard-row-3">
+            <tr>
+                <td id="enter" style="width: 70px;">ENTER</td>
+                <td id="z">Z</td>
+                <td id="x">X</td>
+                <td id="c">C</td>
+                <td id="v">V</td>
+                <td id="b">B</td>
+                <td id="n">N</td>
+                <td id="m">M</td>
+                <td id="del" style="width: 70px;">DEL</td>
+
+
+            </tr>
+        </table>
+
+        <div id = "instructionsModal">
+            <i id = "closeInstructionsBtn" class = "fa fa-close"></i>
+            <br>
+            <div class = "content">
+                <p style = "font-weight: bolder; color: black; font-size: 25px;">Instructions</p>
+                <p>Guess the 5 letter word by clicking 5 characters on the keyboard.</p>
+                <p>When you're sure of your answer press <b>"ENTER"</b>.</p> 
+                <p>Guess up to <b>6</b> times.</p>
+                <p>If the letter is correct, the square will become <span style = "color: #90EE90"><b>green</b></span>.</p>
+                <p>If it is incorrect, the square will become <span style = "color: #F88379;"><b>red</b></span>. </p>
+                <p>If it is correct but in the wrong position, the square will become <span style = "color: #FFDF00;"><b>yellow</b></span>.</p>
+            </div>
+        </div>
+
+        <div id = "resultsModal">
+            <i id = "closeResultsBtn" class = "fa fa-close"></i>
+            <br>
+            <div class = "content">
+                <p id = "result"><b></b></p>
+                <p id = "time">>Your time:</p>
+            </div>
+        </div>
+
+        <div id = "statsModal">
+            <i id = "closeStatsBtn" class = "fa fa-close"></i>
+            <br>
+            <div class = "content">
+              <p><b>STATS</b></p>
+              <p id = "played">Played - </p>
+              <p id = "win">Rate of wins % - </p>
+              <p id = "currentStreak">Current Streak - </p>
+              <p id = "maxStreak">Max Streak - </p>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <script src = "weirdle.js"></script>
+
+
+
+
+
+</body>
+
+
+
+
+</html>
