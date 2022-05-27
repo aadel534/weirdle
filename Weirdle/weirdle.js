@@ -167,20 +167,6 @@ let getGuess = () =>
       return word;
 }
 
-//Checks if the guess equal to the answer
-let checkIfCorrect = () =>
-{
-    // let letterObject = getGuess();
-    // let letter1 = document.getElementById(letterObject[0].id).innerHTML;
-    // let letter2 = document.getElementById(letterObject[1].id).innerHTML;
-    // let letter3 = document.getElementById(letterObject[2].id).innerHTML;
-    // let letter4 = document.getElementById(letterObject[3].id).innerHTML;
-    // let letter5 = document.getElementById(letterObject[4].id).innerHTML;
-    // guess = letter1 + letter2 + letter3 + letter4 + letter5;
-    // guess = guess.toLowerCase();
-    // verifyWordIsReal(guess, letterObject);
-}
-
 let showHint = (letterObject, letter1, letter2, letter3, letter4, letter5) =>
 {
 
